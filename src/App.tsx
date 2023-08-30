@@ -9,7 +9,7 @@ import Card from "./pinteres/components/Card.jsx";
 import {useBookStore} from "./pinteres/store/bookStore.ts"
 import { Photo } from "./types/Photo.ts";
 import { Favorite } from "./pinteres/components/Favorite.jsx";
-
+import { AppRouter } from "./router/AppRouter.jsx";
 // type Photo = {
 //   id: number;
 //   width: number;
@@ -25,6 +25,8 @@ import { Favorite } from "./pinteres/components/Favorite.jsx";
 const api = createApi({
   accessKey: import.meta.env.VITE_ACCESKEY
 });
+
+
 
 function App() {
 
@@ -71,8 +73,10 @@ function App() {
 
   return (
     <>
+    <AppRouter />
+
       <div className="container">
-        <Header />
+        {/* <Header /> */}
         <h1>Favorites</h1>
         {photosSaved.length == 0 
           ? <h2>No hay nada</h2> 
