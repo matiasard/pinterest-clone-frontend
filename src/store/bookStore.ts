@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { PhotoSave } from "../../types/Photo";
+import { PhotoSave } from "../types/Photo";
 
 interface BookState {
   value: string;
@@ -13,8 +13,14 @@ export const useBookStore = create<BookState>((set) => ({
   value: "mario",
   favorites: [],
   updateValue: (newValue: string) => set({ value: newValue }),
-  addToFavorites: (item) =>
-    set((state) => ({ favorites: [...state.favorites, item] })),
+  addToFavorites: (item) => {
+    set((state) => {
+      if (!state.favorites.some((favItem) => favItem.id === item.id)) {
+        return { favorites: [...state.favorites, item] }
+      }
+      return state;
+    })
+  },
   removeFromFavorites: (item) => {
     set((state) => ({
       favorites: state.favorites.filter((favItem) => favItem !== item),

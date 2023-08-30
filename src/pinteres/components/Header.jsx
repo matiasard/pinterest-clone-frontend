@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Logo from "../../assets/icons/Logo";
-import { useBookStore } from '../store/bookStore';
+import { useBookStore } from '../../store/bookStore';
 
 function Header() {
 

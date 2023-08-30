@@ -1,5 +1,5 @@
 import React from "react";
-import { useBookStore } from "../store/bookStore";
+import { useBookStore } from "../../store/bookStore";
 // import { Photo } from './../types/Photo';
 
 function Card({ item }) {

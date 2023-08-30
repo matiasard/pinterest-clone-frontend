@@ -1,12 +1,12 @@
-import { useBookStore } from "../store/bookStore";
+import { useBookStore } from "../../store/bookStore";
 
-export const Favorite = ({ item }) => {
+export const FavoriteCard = ({ item }) => {
     const removeFavorite = useBookStore((state) => state.removeFromFavorites);
 
   const handleRemoveFromFavorites  = (photoId) => () => {
       removeFavorite(photoId)
       console.log("Eliminado")
-      console.log(item);
+      // console.log(item);
   };
 
   return (
