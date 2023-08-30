@@ -1,4 +1,4 @@
-import { useBookStore } from "../../store/bookStore";
+import { useBookStore } from "../store/bookStore";
 
 export const Favorite = ({ item }) => {
     const removeFavorite = useBookStore((state) => state.removeFromFavorites);

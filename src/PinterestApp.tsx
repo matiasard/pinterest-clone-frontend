@@ -4,11 +4,11 @@ import Masonry from "@mui/lab/Masonry";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import "./App.css";
-import Header from "./components/Header.jsx";
-import Card from "./components/Card";
-import {useBookStore} from "./store/bookStore.ts"
+import Header from "./pinteres/components/Header.jsx";
+import Card from "./pinteres/components/Card.jsx";
+import {useBookStore} from "./pinteres/store/bookStore.ts"
 import { Photo } from "./types/Photo.ts";
-import { Favorite } from "./components/FavoritePhoto/Favorite.jsx";
+import { Favorite } from "./pinteres/components/Favorite.jsx";
 
 // type Photo = {
 //   id: number;

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { PhotoSave } from "../types/Photo";
+import { PhotoSave } from "../../types/Photo";
 
 interface BookState {
   value: string;
