@@ -8,7 +8,7 @@ export const SavedPage = () => {
   const photosSaved = useBookStore((state) => state.favorites)
 
   return (
-    <div>
+    <div className="container">
       <h1>Favorites</h1>
         {photosSaved.length == 0 
           ? <h2>No hay nada</h2> 

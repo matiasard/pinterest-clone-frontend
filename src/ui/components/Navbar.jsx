@@ -34,6 +34,7 @@ export const Navbar = () => {
                   onChange={e => setValue(e.target.value)} 
                   onKeyDown={handleKey}/></li>
             <li><NavLink to="/login">User</NavLink></li>
+            {/* <div style={{display: false === false ? 'none' : '' }}> Mostrar mensaje</div> */}
             <li><button onClick={onLogout}>Logout</button></li>
         </ul>
     </header>

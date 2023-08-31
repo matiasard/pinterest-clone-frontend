@@ -18,8 +18,10 @@ export const HomePage = () => {
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(true)
   const val = useBookStore((state) => state.value)
+
+  const showError = (<h1>No se encontro resultados</h1>);
   
-  console.log("dataS:", data);
+  // console.log("dataS:", data);
   // console.log("val:", val);
 
   useEffect(() => {
@@ -54,18 +56,6 @@ export const HomePage = () => {
 
   return (
     <div className="container animate__animated animate__fadeIn">
-        {/* <Header /> */}
-        {/* <h1>Favorites</h1>
-        {photosSaved.length == 0 
-          ? <h2>No hay nada</h2> 
-          : 
-            <Masonry columns={{xs: 2, sm: 3, md: 5}} spacing={{xs: 1, sm: 2, md: 3}} className="masonry">
-              {photosSaved.map((item) => (
-                  <FavoriteCard key={item.id} item={item}/>
-                ))}
-            </Masonry> 
-        } */}
-        
         <InfiniteScroll
           dataLength={data.length}
           next={moreData}
@@ -76,7 +66,7 @@ export const HomePage = () => {
           <Masonry columns={{xs: 2, sm: 3, md: 5}} spacing={{xs: 1, sm: 2, md: 3}} className="masonry">
             {
               data.length === 0
-              ? <h2>No se encontro resultados</h2>
+              ? showError
               : data.map((item) => (
                 <Card key={item.id} item={item} />
                 ))
