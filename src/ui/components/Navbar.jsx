@@ -1,12 +1,18 @@
 import { useState } from "react";
 import {NavLink, useNavigate} from 'react-router-dom'
 import { useBookStore } from "../../store/bookStore";
+import { useAuthStore } from './../../store/authStore';
+
 import Logo from "../../assets/icons/Logo";
 
 export const Navbar = () => {
   const [value, setValue] = useState('cat');
+
   const updateValue = useBookStore((state) => state.updateValue);
-  // const { updateValue } = useBookStore();
+  const {logout} = useAuthStore();
+  const profile = useAuthStore((state) => state.profile);
+  let isLogged = !!profile;
+  // console.log("Profile:", profile);
   const navigate = useNavigate();
 
   const handleKey = (e) => {
@@ -18,7 +24,9 @@ export const Navbar = () => {
   }
 
   const onLogout = () => {
+    logout();
     console.log("logout");
+
     navigate("/login", { replace: true});
   }
 
@@ -33,9 +41,27 @@ export const Navbar = () => {
                   placeholder='Search'
                   onChange={e => setValue(e.target.value)} 
                   onKeyDown={handleKey}/></li>
-            <li><NavLink to="/login">User</NavLink></li>
+            <li>
+                {/* <NavLink to="/login">
+                  {isLogged ? profile?.email : 'Inciar Sesion' }
+                </NavLink> */}
+                {isLogged 
+                  ? (<NavLink>
+                      {profile?.email}
+                    </NavLink>)
+                  : (<NavLink to="/login">
+                      Inciar Sesion
+                    </NavLink>)
+                }
+            </li>
             {/* <div style={{display: false === false ? 'none' : '' }}> Mostrar mensaje</div> */}
-            <li><button onClick={onLogout}>Logout</button></li>
+              {isLogged ? (
+                <li>
+                  <button onClick={onLogout}>
+                    Logout
+                  </button>
+                </li>) : null
+              }
         </ul>
     </header>
   )

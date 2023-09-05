@@ -11,16 +11,20 @@ import Card from "../components/Card.jsx";
 const api = createApi({
   accessKey: import.meta.env.VITE_ACCESKEY
 });
+// import { useAuthStore } from './../../store/authStore';
+
 
 
 export const HomePage = () => {
   let index = useRef(1)
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(true)
-  const val = useBookStore((state) => state.value)
+  const query = useBookStore((state) => state.query)
+  // const profile = useAuthStore((state) => state.profile);
 
   const showError = (<h1>No se encontro resultados</h1>);
   
+  // console.log("Profile:", profile);
   // console.log("dataS:", data);
   // console.log("val:", val);
 
@@ -29,14 +33,14 @@ export const HomePage = () => {
     setHasMore(true)
 
     api.search
-      .getPhotos({ query: val, perPage: 20, page: index.current })
+      .getPhotos({ query: query, perPage: 20, page: index.current })
       .then((result) => {
         setData(result.response?.results)
       })
       .catch(() => {
         console.log("GetPHOTOS: something went wrong! or Limits key");
       });
-  }, [val]);
+  }, [query]);
 
   const moreData = () => {
     index.current = index.current + 1;
@@ -47,7 +51,7 @@ export const HomePage = () => {
 
     console.log("call Scroll", index.current)
     api.search
-      .getPhotos({ query: val, perPage: 20, page: index.current })
+      .getPhotos({ query: query, perPage: 20, page: index.current })
       .then((result) => setData(data.concat(result.response?.results)))
       .catch(() => {
         console.log("something went wrong!");

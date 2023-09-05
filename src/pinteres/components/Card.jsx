@@ -1,12 +1,17 @@
 import React from "react";
 import { useBookStore } from "../../store/bookStore";
 // import { Photo } from './../types/Photo';
+import { useAuthStore } from './../../store/authStore';
+import { useNavigate } from "react-router-dom";
 
 function Card({ item }) {
   const addToFavorites = useBookStore((state) => state.addToFavorites);
   const favorite = useBookStore((state) => state.favorites);
+  const isAuth = useAuthStore((state) => state.isAuth);
+  const navigate = useNavigate();
 
   const handleAddToFavorites = () => {
+    if (isAuth) {
     addToFavorites({
       id: item.id,
       liked_by_user: true,
@@ -17,6 +22,9 @@ function Card({ item }) {
       userName: item.user.name,
       user_profile_image: item.user.profile_image.small,
     });
+    } else {
+      navigate('/login')
+    }
 
     console.log(favorite);
   };

@@ -5,15 +5,15 @@ import { Navbar } from './../../ui';
 export const PinterestRoutes = () => {
   return (
     <>
-        <Navbar />
+        {/* <Navbar /> */}
 
         <Routes>
         <Route path="/home" element={<HomePage />} />
-        <Route path="/guardado" element={<SavedPage />} />
+        {/* <Route path="/guardado" element={<SavedPage />} /> */}
 
         {/* Falta la ruta de: User */}
 
-        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/*" element={<Navigate to="/home" />} />
       </Routes>
     </>
   )

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { PhotoSave } from "../types/Photo";
 
 interface BookState {
-  value: string;
+  query: string;
   favorites: PhotoSave[];
   updateValue: (newValue: string) => void;
   addToFavorites: (item: PhotoSave) => void;
@@ -10,9 +10,9 @@ interface BookState {
 }
 
 export const useBookStore = create<BookState>((set) => ({
-  value: "mario",
+  query: "mario",
   favorites: [],
-  updateValue: (newValue: string) => set({ value: newValue }),
+  updateValue: (newValue: string) => set({ query: newValue }),
   addToFavorites: (item) => {
     set((state) => {
       if (!state.favorites.some((favItem) => favItem.id === item.id)) {
