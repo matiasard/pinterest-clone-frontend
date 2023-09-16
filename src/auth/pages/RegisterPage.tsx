@@ -11,14 +11,8 @@ import {
 import { useForm } from "../hooks/useForm";
 import { registerRequest } from "../../api/auth";
 
-// type RegisterType = {
-//   username: string,
-//   email: string;
-//   password: string;
-// };
-
 export const RegisterPage = () => {
-  // const [registerData, setRegisterData] = useState<RegisterType>(initialState)
+  
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { username, email, password, formState, onInputChange, onResetFrom } =
     useForm({
