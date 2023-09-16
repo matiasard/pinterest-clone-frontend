@@ -1,26 +1,34 @@
 import React from "react";
 import { useBookStore } from "../../store/bookStore";
-// import { Photo } from './../types/Photo';
 import { useAuthStore } from './../../store/authStore';
 import { useNavigate } from "react-router-dom";
+import { saveImage } from './../../api/image';
+// import { Photo } from './../types/Photo';
 
 function Card({ item }) {
-  const addToFavorites = useBookStore((state) => state.addToFavorites);
+  // const addToFavorites = useBookStore((state) => state.addToFavorites);
   const favorite = useBookStore((state) => state.favorites);
   const isAuth = useAuthStore((state) => state.isAuth);
+  const profile = useAuthStore((state) => state.profile);
   const navigate = useNavigate();
 
-  const handleAddToFavorites = () => {
+  const handleAddToFavorites = async () => {
+    console.log('Favorito Accion boton')
+    console.log(profile)
     if (isAuth) {
-    addToFavorites({
-      id: item.id,
-      liked_by_user: true,
-      description: item.description,
-      alt_description: item.alt_description,
-      donwload: item.links.html,
-      url: item.urls.small,
-      userName: item.user.name,
-      user_profile_image: item.user.profile_image.small,
+      const newFavoriteImage = {
+        idImage: item.id,
+        description: item.description,
+        alt_description: item.alt_description,
+        download: item.links.html,
+        url: item.urls.small,
+        userName: item.user.name,
+        user_profile_image: item.user.profile_image.small,
+        userId: profile.id,
+      }
+
+      saveImage(newFavoriteImage).then((response) => {
+      console.log("FRONT:",response);
     });
     } else {
       navigate('/login')
