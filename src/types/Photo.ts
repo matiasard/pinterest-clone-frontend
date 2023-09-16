@@ -23,7 +23,6 @@ export interface Photo {
     description:              string | null;
     height:                   number;
     id:                       string;
-    liked_by_user:            boolean;
     likes:                    number;
     links:                    Links;
     promoted_at:              Date;
@@ -118,12 +117,13 @@ export interface Urls {
 }
 
 export interface PhotoSave {
-    id:                 string;
-    liked_by_user:      boolean;
-    description:        string;
-    alt_description:    string;
-    donwload:           string;
+    id:                 number;
+    idImage:            string;
+    description:        string | null;
+    alt_description:    string | null;
+    download:           string;
     url:                string;
     userName:           string;
-    user_profile_image: string;
+    user_profile_image: string | null;
+    userId:             number;
 }

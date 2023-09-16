@@ -1,19 +1,14 @@
-import { useBookStore } from "../../store/bookStore";
+export const FavoriteCard = ({ item, onRemoveFromFavorites }) => {
 
-export const FavoriteCard = ({ item }) => {
-    const removeFavorite = useBookStore((state) => state.removeFromFavorites);
-
-  const handleRemoveFromFavorites  = (photoId) => () => {
-      removeFavorite(photoId)
-      console.log("Eliminado")
-      // console.log(item);
-  };
+  const handleRemoveFromFavorites = () => {
+    onRemoveFromFavorites(item);
+  }
 
   return (
       <div key={item.id} className="item">
         <div className="image">
           <img src={item.url} alt={item.alt_description} />
-          <button className="btn-save" onClick={handleRemoveFromFavorites (item)}>
+          <button className="btn-save" onClick={handleRemoveFromFavorites}>
             Borrar
           </button>
           <a className="icon-upload" href="">

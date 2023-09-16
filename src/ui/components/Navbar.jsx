@@ -12,7 +12,6 @@ export const Navbar = () => {
   const {logout} = useAuthStore();
   const profile = useAuthStore((state) => state.profile);
   let isLogged = !!profile;
-  // console.log("Profile:", profile);
   const navigate = useNavigate();
 
   const handleKey = (e) => {
@@ -42,19 +41,15 @@ export const Navbar = () => {
                   onChange={e => setValue(e.target.value)} 
                   onKeyDown={handleKey}/></li>
             <li>
-                {/* <NavLink to="/login">
-                  {isLogged ? profile?.email : 'Inciar Sesion' }
-                </NavLink> */}
                 {isLogged 
                   ? (<NavLink>
-                      {profile?.email}
+                      {profile?.username}
                     </NavLink>)
-                  : (<NavLink to="/login">
+                  : (<NavLink to="auth/login">
                       Inciar Sesion
                     </NavLink>)
                 }
             </li>
-            {/* <div style={{display: false === false ? 'none' : '' }}> Mostrar mensaje</div> */}
               {isLogged ? (
                 <li>
                   <button onClick={onLogout}>

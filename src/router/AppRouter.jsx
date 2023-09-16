@@ -9,6 +9,7 @@ import { Navbar } from './../ui/';
 
 // import { SavedPage } from './../pinteres/pages/SavedPage';
 import { useAuthStore } from './../store/authStore';
+import { RegisterPage } from "../auth/pages/RegisterPage";
 
 export const AppRouter = () => {
   const isAuth = useAuthStore(state => state.isAuth);
@@ -25,12 +26,21 @@ export const AppRouter = () => {
           <Route path="/guardado" element={<SavedPage />} />
         </Route>
 
-        <Route path="/login" element={ 
+         <Route path="auth/*" element={ 
+          <PublicRoute> 
+            <Routes>
+              <Route path="/*" element={ <LoginPage /> } />
+              <Route path="/register" element={ <RegisterPage /> } />
+            </Routes>
+          </PublicRoute>
+        } />
+
+        {/* <Route path="/login" element={ 
           <PublicRoute> 
             <LoginPage />
           </PublicRoute>
         } />
-        
+        <Route path="/register" element={ <RegisterPage /> } /> */}
 
         {/* <Route path="/*" element={ 
           <PrivateRoute> 
