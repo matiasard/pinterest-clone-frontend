@@ -31,7 +31,7 @@ function Card({ item }) {
       console.log("FRONT:",response);
     });
     } else {
-      navigate('/login')
+      navigate('/auth/login')
     }
 
     console.log(favorite);
