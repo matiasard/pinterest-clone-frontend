@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useAuthStore } from "./../store/authStore";
+import { useAuthStore } from "../store/authStore";
 
 const authApi = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://pinterest-api.onrender.com/api",
   withCredentials: true,
 });
 

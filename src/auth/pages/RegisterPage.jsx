@@ -1,8 +1,4 @@
-// import './LoginPage.css';
-// import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../store/authStore";
-import { loginRequest } from "../../api/auth";
 import {
   Box,
   Button,
@@ -13,40 +9,29 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "../hooks/useForm";
+import { registerRequest } from "../../api/auth";
 
-// type LoginType = {
-//   email: string;
-//   password: string;
-// };
-
-export const LoginPage = () => {
+export const RegisterPage = () => {
+  const { username, email, password, formState, onInputChange } = useForm({
+    username: "",
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { email, password, formState, onInputChange, onResetFrom } =
-    useForm({
-      email: "",
-      password: "",
-    });
-  const setToken = useAuthStore((state) => state.setToken);
-  const setProfile = useAuthStore((state) => state.setProfile);
 
-  // * Formulario MUI Login
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formState);
-    const resLogin = await loginRequest(email, password);
 
-    console.log(resLogin.data);
-    if (resLogin.data.ok) {
-      setToken(resLogin.data.accessTokenKey);
-      setProfile(resLogin.data.user);
-  
-      navigate("/home", { replace: true });
+    const resRegister = await registerRequest(username, email, password);
+    console.log(resRegister.data);
+
+    if (resRegister.data?.ok) {
+      console.log("ok: ", resRegister.data?.ok);
+      navigate("/login", { replace: true });
     } else {
-      console.log("Error: no paso")
-      console.log(resLogin)
+      console.log("ok: ", resRegister.data?.ok);
     }
-    
   };
 
   return (
@@ -67,14 +52,15 @@ export const LoginPage = () => {
               }}
             >
               <Typography variant="h4" sx={{ mb: 1, mt: 1 }}>
-                Iniciar Sesión
+                Registrarse
               </Typography>
               <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                   margin="normal"
-                  name="email"
-                  label="Email"
-                  type="email"
+                  type="text"
+                  name="username"
+                  label="Username"
+                  value={username}
                   variant="outlined"
                   fullWidth
                   required
@@ -83,9 +69,22 @@ export const LoginPage = () => {
                 />
                 <TextField
                   margin="normal"
+                  type="email"
+                  name="email"
+                  label="Email"
+                  value={email}
+                  variant="outlined"
+                  fullWidth
+                  required
+                  sx={{ mt: 2, mb: 1.5 }}
+                  onChange={onInputChange}
+                />
+                <TextField
+                  margin="normal"
+                  type="password"
                   name="password"
                   label="Password"
-                  type="password"
+                  value={password}
                   fullWidth
                   required
                   sx={{ mt: 1.5, mb: 1.5 }}
@@ -97,15 +96,13 @@ export const LoginPage = () => {
                   variant="contained"
                   sx={{ mt: 2, mb: 3 }}
                 >
-                  Iniciar Sesion
+                  Enviar
                 </Button>
               </Box>
               <Grid item>
                 <p>
-                  ¿No tienes una cuenta?{" "}
-                  <NavLink to={"/register"}>                    
-                      Registrate
-                  </NavLink>
+                  ¿Tienes una cuenta?{" "}
+                  <NavLink to={"/login"}>Iniciar Sesión</NavLink>
                 </p>
               </Grid>
             </Paper>

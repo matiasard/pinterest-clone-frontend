@@ -26,15 +26,15 @@ export const useAuthStore = create(
       profile: null,
       isAuth: false,
       setToken: (token: string) =>
-        set((state) => ({
+        set((_state) => ({
           token,
           isAuth: true
         })),
       setProfile: (profile: any) => 
-          set((state) => ({ 
+          set((_state) => ({ 
             profile
         })),
-      logout: () => set((state) => ({
+      logout: () => set((_state) => ({
           token: "",
           isAuth: false,
           profile: null,

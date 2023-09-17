@@ -1,4 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store/authStore";
+import { loginRequest } from "../../api/auth";
 import {
   Box,
   Button,
@@ -9,32 +11,39 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "../hooks/useForm";
-import { registerRequest } from "../../api/auth";
 
-export const RegisterPage = () => {
-  
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { username, email, password, formState, onInputChange, onResetFrom } =
+// interface LoginType {
+//   email: string,
+//   password: string;
+// }
+
+export const LoginPage = () => {
+  const navigate = useNavigate();
+  const { email, password, formState, onInputChange } =
     useForm({
-      username: "",
       email: "",
       password: "",
     });
-    const navigate = useNavigate();
+  const setToken = useAuthStore((state) => state.setToken);
+  const setProfile = useAuthStore((state) => state.setProfile);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+  // * Formulario MUI Login
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formState);
+    const resLogin = await loginRequest(email, password);
 
-    const resRegister = await registerRequest(username,email,password);
-    console.log(resRegister.data);
-
-    if (resRegister.data?.ok) {
-      console.log("ok: ", resRegister.data?.ok)
-      navigate("/login", { replace: true });
+    console.log(resLogin.data);
+    if (resLogin.data.ok) {
+      setToken(resLogin.data.accessTokenKey);
+      setProfile(resLogin.data.user);
+  
+      navigate("/home", { replace: true });
     } else {
-      console.log("ok: ", resRegister.data?.ok)
+      console.log("Error: no paso")
+      console.log(resLogin)
     }
+    
   };
 
   return (
@@ -55,27 +64,14 @@ export const RegisterPage = () => {
               }}
             >
               <Typography variant="h4" sx={{ mb: 1, mt: 1 }}>
-                Registrarse
+                Iniciar Sesión
               </Typography>
               <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                   margin="normal"
-                  type="text"
-                  name="username"
-                  label="Username"
-                  value={username}
-                  variant="outlined"
-                  fullWidth
-                  required
-                  sx={{ mt: 2, mb: 1.5 }}
-                  onChange={onInputChange}
-                />
-                <TextField
-                  margin="normal"
-                  type="email"
                   name="email"
                   label="Email"
-                  value={email}
+                  type="email"
                   variant="outlined"
                   fullWidth
                   required
@@ -84,10 +80,9 @@ export const RegisterPage = () => {
                 />
                 <TextField
                   margin="normal"
-                  type="password"
                   name="password"
                   label="Password"
-                  value={password}
+                  type="password"
                   fullWidth
                   required
                   sx={{ mt: 1.5, mb: 1.5 }}
@@ -99,14 +94,14 @@ export const RegisterPage = () => {
                   variant="contained"
                   sx={{ mt: 2, mb: 3 }}
                 >
-                  Enviar
+                  Iniciar Sesion
                 </Button>
               </Box>
               <Grid item>
                 <p>
-                  ¿Tienes una cuenta?{" "}
-                  <NavLink to={"/login"}>
-                   Iniciar Sesión
+                  ¿No tienes una cuenta?{" "}
+                  <NavLink to={"/register"}>                    
+                      Registrate
                   </NavLink>
                 </p>
               </Grid>
