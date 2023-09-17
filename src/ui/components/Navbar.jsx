@@ -1,9 +1,10 @@
 import { useState } from "react";
-import {NavLink, useNavigate} from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useBookStore } from "../../store/bookStore";
 import { useAuthStore } from './../../store/authStore';
 
 import Logo from "../../assets/icons/Logo";
+import { Button } from "@mui/material";
 
 export const Navbar = () => {
   const [value, setValue] = useState('cat');
@@ -52,9 +53,9 @@ export const Navbar = () => {
             </li>
               {isLogged ? (
                 <li>
-                  <button onClick={onLogout}>
+                  <Button onClick={onLogout} variant="text" size="small" color="error">
                     Logout
-                  </button>
+                  </Button>
                 </li>) : null
               }
         </ul>
