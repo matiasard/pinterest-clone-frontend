@@ -100,7 +100,7 @@ export const LoginPage = () => {
               <Grid item>
                 <p>
                   ¿No tienes una cuenta?{" "}
-                  <NavLink to={"/register"}>                    
+                  <NavLink to={"/auth/register"}>                    
                       Registrate
                   </NavLink>
                 </p>

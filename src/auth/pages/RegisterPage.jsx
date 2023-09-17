@@ -102,7 +102,7 @@ export const RegisterPage = () => {
               <Grid item>
                 <p>
                   ¿Tienes una cuenta?{" "}
-                  <NavLink to={"/login"}>Iniciar Sesión</NavLink>
+                  <NavLink to={"/auth/login"}>Iniciar Sesión</NavLink>
                 </p>
               </Grid>
             </Paper>
