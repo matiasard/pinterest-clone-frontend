@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthStore } from "../store/authStore";
 
 const authApi = axios.create({
-  baseURL: "https://pinterest-api.onrender.com/api",
+  baseURL: "https://pinterest-api.onrender.com",
   withCredentials: true,
 });
 
