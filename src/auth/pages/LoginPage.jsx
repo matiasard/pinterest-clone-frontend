@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/authStore";
 import { loginRequest } from "../../api/auth";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   Paper,
@@ -18,6 +20,7 @@ import { useForm } from "../hooks/useForm";
 // }
 
 export const LoginPage = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { email, password, formState, onInputChange } =
     useForm({
@@ -31,19 +34,21 @@ export const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formState);
+    setLoading(true)
     const resLogin = await loginRequest(email, password);
 
     console.log(resLogin.data);
     if (resLogin.data.ok) {
+      setLoading(false);
       setToken(resLogin.data.accessTokenKey);
       setProfile(resLogin.data.user);
   
       navigate("/home", { replace: true });
     } else {
+      setLoading(false)
       console.log("Error: no paso")
       console.log(resLogin)
     }
-    
   };
 
   return (
@@ -92,9 +97,14 @@ export const LoginPage = () => {
                   type="submit"
                   fullWidth
                   variant="contained"
+                  disabled={loading}
                   sx={{ mt: 2, mb: 3 }}
                 >
-                  Iniciar Sesion
+                  {
+                    loading
+                      ? (<CircularProgress  />)
+                      : "Iniciar Sesion"
+                  }
                 </Button>
               </Box>
               <Grid item>
