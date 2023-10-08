@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   Paper,
@@ -12,6 +14,7 @@ import { useForm } from "../hooks/useForm";
 import { registerRequest } from "../../api/auth";
 
 export const RegisterPage = () => {
+  const [loading, setLoading] = useState(false);
   const { username, email, password, formState, onInputChange } = useForm({
     username: "",
     email: "",
@@ -22,14 +25,16 @@ export const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formState);
-
+    setLoading(true);
     const resRegister = await registerRequest(username, email, password);
     console.log(resRegister.data);
 
     if (resRegister.data?.ok) {
+      setLoading(false);
       console.log("ok: ", resRegister.data?.ok);
       navigate("/login", { replace: true });
     } else {
+      setLoading(false);
       console.log("ok: ", resRegister.data?.ok);
     }
   };
@@ -94,9 +99,13 @@ export const RegisterPage = () => {
                   type="submit"
                   fullWidth
                   variant="contained"
+                  disabled={loading}
                   sx={{ mt: 2, mb: 3 }}
                 >
-                  Enviar
+                  { loading
+                    ? <CircularProgress />
+                    : "Enviar"
+                  }
                 </Button>
               </Box>
               <Grid item>
